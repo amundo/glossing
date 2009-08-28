@@ -1,0 +1,6 @@
+Glossing
+========
+
+The <a title="Dept. of Linguistics | Resources | Glossing Rules" href="http://www.eva.mpg.de/lingua/resources/glossing-rules.php">Leipzig Glossing Rules</a> are a practical characterization of traditional linguistic glossing technique. I'm working on tools to edit glosses in this format within the web browser.
+
+More <a href="http://ruphus.com/#glossing">here</a>.
