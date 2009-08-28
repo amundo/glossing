@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">  
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>
+</title>
+
+<style type="text/css" media="screen" >
+body { }
+.highlight { background: yellow; } 
+td { border: 1px solid #ccc; }
+
+table.newborders { font-family: Gentium; border: 1px solid #ccc; }
+table.newborders tr td { border: none; text-align:left; padding-right: 1em; }
+</style>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<h1>Converting Oswalt's @-notation to HTML</h1>
+
+<p>Robert Oswalt's lexicography on Kashaya Pomo and Southern Pomo make use of a creative notation, which is to my knowledge unique, to indicate alignment between Kashaya words and English words. Consider the following sentence from his Kashaya  dictionary:</p>
+
+<pre>
+/?o:@1 ?ana':@2 cila@3 ?a@4 k'a7a@5 siwic^hqaq^h@6. p^hala@7 $a'hcilamq^h@8./
+Oh@1 I@4 let@6s the clothes@5 hang@6 out too@2 long@3; they got@8 damp@8 again@7.
+</pre>
+
+<p>Note that (almost) every lexeme is followed by an <code>@</code> sign and a number, and occasionally by an additional letter. (I'm actually not sure what the letters mean yet.)</p>
+
+<pre>
+/?o:<span class="highlight">@1</span> ?ana':<span class="highlight">@2</span> cila<span class="highlight">@3</span> ?a<span class="highlight">@4</span> k'a7a<span class="highlight">@5</span> siwic^hqaq^h<span class="highlight">@6.</span> p^hala<span class="highlight">@7</span> $a'hcilamq^h<span class="highlight">@8</span>./
+Oh<span class="highlight">@1</span> I<span class="highlight">@4</span> let<span class="highlight">@6s</span> the</span> clothes<span class="highlight">@5</span> hang<span class="highlight">@6</span> out</span> too<span class="highlight">@2</span> long<span class="highlight">@3;</span> they</span> got<span class="highlight">@8</span> damp<span class="highlight">@8</span> again<span class="highlight">@7</span>.
+</pre>
+
+<p>Converting to Oswalt's intended orthography:</p>
+
+<pre>
+ʔo·@1	ʔaná·@2	cila@3	ʔa@4	k	̓aṭa@5 	siwicʰqaqʰ@6.	pʰala@7	šáhcilamqʰ@8.
+Oh@1	I@4	let@6s	the	clothes@5	hang@6	out	too@2	long@3;	they	got@8	damp@8	again@7.
+</pre>
+
+<table>
+<tr>
+
+<td>ʔo·@1</td><td>ʔaná·@2</td><td>cila@3</td><td>ʔa@4</td><td>k</td><td>k̓aṭa</td><td>siwicʰqaqʰ@6.</td><td>pʰala@7</td><td>šáhcilamqʰ@8.</td>
+</tr>
+<tr>
+<td>Oh@1</td><td>I@4</td><td>let@6s</td><td>the</td><td>clothes@5</td><td>hang@6</td><td>out</td><td>too@2</td><td>long@3;</td><td>they</td><td>got@8</td><td>damp@8</td><td>again@7.</td>
+</tr>
+</table>
+
+
+<hr />
+
+<p>Let's try aligning one by hand.</p>
+
+
+<table>
+<tr>
+<td>ʔo·@1</td>
+<td>ʔaná·@2</td>
+<td>cila@3</td>
+<td>ʔa@4</td>
+<td>k̓aṭa@5 </td>
+<td>siwicʰqaqʰ@6.</td>
+<td>pʰala@7</td>
+<td>šáhcilamqʰ@8.</td>
+</tr>
+
+<tr> 
+<td>Oh@1</td>
+<td>I@4</td>
+<td>let@6s</td>
+<td>the</td>
+<td>clothes@5</td>
+<td>hang@6</td>
+<td>out</td>
+<td>too@2</td>
+<td>long@3;</td>
+<td>they</td>
+<td>got@8</td>
+<td>damp@8</td>
+<td>again@7.</td>
+</tr>
+</table>
+
+<hr />
+<p>Sort the English side to align with Kashaya @-notation.</p>
+
+<table>
+<tr>
+<td>ʔo·@1</td>
+<td>ʔaná·@2</td>
+<td>cila@3</td>
+<td>ʔa@4</td>
+<td>k̓aṭa@5 </td>
+<td>siwicʰqaqʰ@6.</td>
+<td>pʰala@7</td>
+<td>šáhcilamqʰ@8.</td>
+</tr>
+
+<tr> 
+<td>Oh@1</td>
+<td>too@2</td>
+<td>long@3;</td>
+<td>I@4</td>
+<td>the clothes@5</td>
+<td>let@6s hang@6 out</td>
+<td>again@7.</td>
+<td>they got@8 damp@8</td>
+</tr>
+</table>
+
+
+<hr />
+<p>Remove the at-notation, again by hand.</p>
+
+<table>
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+</table>
+
+
+<hr />
+<p>Add the English sentence in its natural order, again with the @-notation removed.</p>
+
+<table>
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+
+<tr>
+<td>
+"Oh I let the clothes hang out too long; they got damp again."
+</td>
+</tr>
+</table>
+
+<hr />
+<p>Meh, that doesn't line up right. What if we just represented each aligned pair with a gloss as a table with a... footer? </p>
+
+<table>
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+
+</table>
+
+<p>
+"Oh I let the clothes hang out too long; they got damp again."
+</p>
+
+
+<hr />
+<p>Well, better. But I find the borders distracting. What if we switched the border from the td to the tr? </p>
+
+<table class="newborders">
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+
+</table>
+
+<p>
+"Oh I let the clothes hang out too long; they got damp again."
+</p>
+
+
+<hr />
+<p>Pretty readable! But there is still the problem that the glossing and the translation aren't under a single element. If we used a <code>colspan</code> on a <code>tr</code> with the translation in it, we'd face the problem of having to track just how many cells are in the source or target. Is there another element that can be used to add a single cross-table cell, like a title, without specifying the number of cells to span? <code>thead</code> doesn't work, because it puts the translation first even if it's second in source order. </p>
+
+<table class="newborders">
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+<thead>
+"Oh I let the clothes hang out too long; they got damp again."
+</thead>
+
+</table>
+
+<hr />
+<p>
+What about <code>tfoot</code>?
+</p>
+
+<table class="newborders">
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+<tfoot>
+<tr>"Oh I let the clothes hang out too long; they got damp again."</tr>
+</tfoot>
+
+</table>
+
+<hr />
+<p>
+Mlergh, I think this is an incorrect usage of <code><a title="Tables in HTML documents" href="http://www.w3.org/TR/html4/struct/tables.html#edef-TFOOT">tfoot</a></code>, it doesn't validate, <em>and</em> it doesn't do what I want. <a title="Bring on the tables | 456 Berea Street" href="http://www.456bereastreet.com/archive/200410/bring_on_the_tables/">But...</a> 
+</p>
+
+<table class="captioned">
+<caption style="caption-side:bottom">
+"Oh I let the clothes hang out too long; they got damp again."
+</caption>
+<tr>
+<td>ʔo·</td>
+<td>ʔaná·</td>
+<td>cila</td>
+<td>ʔa</td>
+<td>k̓aṭa</td>
+<td>siwicʰqaqʰ.</td>
+<td>pʰala</td>
+<td>šáhcilamqʰ.</td>
+</tr>
+
+<tr> 
+<td>Oh</td>
+<td>too</td>
+<td>long</td>
+<td>I</td>
+<td>the.clothes</td>
+<td>let.hang.out</td>
+<td>again.</td>
+<td>they.got.damp</td>
+</tr>
+
+</table>
+<p>That looks acceptable to me. </p>
+
+</body>
+</html>

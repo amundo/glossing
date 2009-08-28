@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Glossifier</title>
+
+  <style type="text/css" media="screen" >
+body {font-family: sans-serif; }
+table#glosses { border: 1px solid black; font-size:xx-large;}
+td { background: transparent; text-align:left;  padding: 1px }
+td:hover { cursor: pointer; }
+tr.source { font-weight: bold; font-style: italic;  }
+ul.sentences { list-style-type:none; }
+.selected { background: yellow; }
+  </style>
+
+  <script src="jquery.js"></script>
+  <script type="text/javascript">
+
+$(function(){
+
+/*
+  $('table tr:first td').live('click', function(){
+    console.log($(this).prevAll().length)
+  });
+*/
+
+  function tokenize(text){ return $.trim(text).split(' ') }
+
+  function tdlist(words) { 
+    return '<td>' + words.join('</td><td>') + '</td>'
+  }
+
+  $('ul.sentences').each(function(){ 
+
+    var source_words = tokenize($(this).find('li:first').html())
+    var target_words = tokenize($(this).find('li:nth-child(2)').html())
+
+    $(this).prepend('<table class="glosses"><tr class="source"></tr><tr class="target"></tr></table>') 
+
+    var source = $(this).find('tr.source')
+    var target = $(this).find('tr.target')
+    
+    target.html(tdlist(target_words));
+    source.html(tdlist(source_words));
+
+  })
+
+  $('.source').each(function(){ console.log($(this).next().html()) })
+  $('.source td').click(function(){
+    $(this).toggleClass('selected');
+    $(this).prevAll().length;
+  });
+
+})
+
+
+  </script>
+
+</head>
+<body>
+
+
+<ul class="sentences">
+  <li>Hi:baya duyam em ima:ta nashoya da:qa.</li>
+  <li>The old man loves the young woman. </li> 
+</ul>
+
+<ul class="sentences">
+  <li>T´i yáchma pizza dá:ka.</li>
+  <li>Everybody loves Pizza.</li>
+</ul>
+
+
+<ul class="sentences">
+  <li>Khe na:ta hi:baya ?em mens’in khe nata ?ima:ta law t.’i ?acho khe qahtín shudima:du.</li>
+  <li>My daughter and son brought with them their friends.</li>
+</ul>
+
+<ul class="sentences">
+  <li>da:dán' e kawa qápu</li>
+  <li>My grandfather smoke tobacco.</li>
+</ul>
+
+<ul class="sentences">
+  <li>Hé?el le li wa mito daw kushka he hayu ?el ?</li>
+  <li>Do you want the cat or the dog?</li>
+</ul>
+</body>
+</html>
