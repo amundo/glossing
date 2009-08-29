@@ -6,13 +6,16 @@
 
   <style type="text/css" media="screen" >
 body {font-family: sans-serif; }
-table#glosses { border: 1px solid black; font-size:xx-large;}
-td { background: #ccc; text-align:left;  padding: 4px }
+div.sentences { margin: 2em 0; }
+table { border: none; font-size:large;}
+td { border: 1px solid white; padding: 4px;  }
 td:hover { cursor: pointer; }
-tr.source { font-weight: bold; font-style: italic;  }
+tr.object { font-weight: bold; font-style: italic;  }
+tr.franca { border-bottom: 1px solid black;  }
+tr.franca td { min-width: 2em;  }
+
 ul.sentences { list-style-type:none; }
-.selected { background: yellow; }
-li { font-size: small; }
+.selected { border: 1px solid black;  }
   </style>
 
   <script src="jquery.js"></script>
@@ -27,21 +30,28 @@ $(function(){
 
     var words = tokenize($(this).text());
  
-    $(this).replaceWith('<table><tr class="object">' + tdlist(words)  + '</tr></table>');
-    $object_tr = $('tr.object');
+    object_row = '<tr class="object">' + tdlist(words)  + '</tr>';
+    var blanks = [];
+    for(var i=0;i<words.length;i++)
+      blanks.push('&nbsp; ');
+    franca_row = '<tr class="franca">' + tdlist(blanks)  + '</tr>';
 
-    $franca_tr = $object_tr.clone().removeClass('object').addClass('franca');
-    $franca_tr.find('td').each(function(){ 
-     $(this).html('&nbsp;') 
-    })
-  /*.find('td').each(function(){
-      console.log($(this));
-    });*/
+    $table = $('<table></table>').append(object_row + franca_row);
 
-    $object_tr.after($franca_tr);
-
-
+    $(this).after($table).hide();
   })
+
+
+  $('.object td').toggle(
+    function(){
+      $cell = $(this);
+      var cellIndex = $cell.get(0).cellIndex;
+      matched = $cell.addClass('selected').parent().next().children()[cellIndex];
+      $(matched).addClass('selected');
+    },
+    function(){
+      $(this).removeClass('selected');
+    })
 
 })
 
@@ -52,6 +62,16 @@ $(function(){
 <div class="sentences">
   <p class="object">T´i yáchma pizza dá:ka.</p>
   <p class="franca">Everybody loves Pizza.</p>
+</div>
+
+<div class="sentences">
+  <p class="object">da:dán' e kawa qápu</p>
+  <p class="franca">My grandfather smoke tobacco.</p>
+</div>
+
+<div class="sentences">
+  <p class="object">Hé?el le li wa mito daw kushka he hayu ?el ?</p>
+  <p class="franca">Do you want the cat or the dog?</p>
 </div>
 
 </body>
