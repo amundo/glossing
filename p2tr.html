@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Glossifier</title>
+
+  <style type="text/css" media="screen" >
+body {font-family: sans-serif; }
+table#glosses { border: 1px solid black; font-size:xx-large;}
+td { background: #ccc; text-align:left;  padding: 4px }
+td:hover { cursor: pointer; }
+tr.source { font-weight: bold; font-style: italic;  }
+ul.sentences { list-style-type:none; }
+.selected { background: yellow; }
+li { font-size: small; }
+  </style>
+
+  <script src="jquery.js"></script>
+  <script type="text/javascript">
+
+$(function(){
+
+  function tokenize(text){ return $.trim(text).split(/[ \n\t]+/) }
+  function tdlist(words) { return '<td>' + words.join('</td><td>') + '</td>' }
+
+  $('.sentences .object').each(function(){
+
+    var words = tokenize($(this).text());
+ 
+    $(this).replaceWith('<table><tr class="object">' + tdlist(words)  + '</tr></table>');
+    $object_tr = $('tr.object');
+
+    $franca_tr = $object_tr.clone().removeClass('object').addClass('franca');
+    $franca_tr.find('td').each(function(){ 
+     $(this).html('&nbsp;') 
+    })
+  /*.find('td').each(function(){
+      console.log($(this));
+    });*/
+
+    $object_tr.after($franca_tr);
+
+
+  })
+
+})
+
+  </script>
+</head>
+<body>
+
+<div class="sentences">
+  <p class="object">T´i yáchma pizza dá:ka.</p>
+  <p class="franca">Everybody loves Pizza.</p>
+</div>
+
+</body>
+</html>
